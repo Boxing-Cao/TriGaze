@@ -45,4 +45,15 @@ Our ablation studies confirm the indispensability of this design:
 *   **Removing the Tri-plane:** Error increases to 6.66°.
 *   **Removing Camera Guidance (CFM):** Without camera conditioning, the model suffers severe degradation under mask occlusions (error increases to 7.37°).
 
+
+---
+
+## 4. Qualitative Insights & Discussion
+
+Beyond the quantitative metrics, our extensive experiments and ablation studies reveal several key subjective insights into why TriGaze excels in challenging real-world scenarios:
+
+*   **Robustness Against Severe Occlusions (Masks/Glasses):** Traditional 2D methods often fail when facial features are partially occluded because they rely heavily on local texture matching. In contrast, TriGaze demonstrates remarkable resilience. By lifting features into a 3D tri-plane and explicitly conditioning the queries on camera geometry (CFM), the network learns to dynamically filter out occlusion-induced noise and "hallucinate" the underlying 3D facial structure based on visible global context.
+*   **Resilience to Extreme, Off-Axis Viewpoints:** The in-vehicle environment is notorious for fixed, off-axis camera placements and extreme driver head movements. While unguided 3D models still struggle with these severe perspective distortions, our CFM module successfully rectifies them. By treating gaze estimation as a view-dependent feature query, TriGaze inherently understands *how* the face is being imaged, rather than just *what* the face looks like.
+*   **Explicit Geometry Trumps Brute-Force Scaling:** Perhaps the most encouraging takeaway is our comparison with foundation models. The fact that our lightweight framework (~32M parameters) significantly outperforms massive models like DINOv2 (>300M parameters) on this task proves a fundamental principle: for inherently 3D problems like gaze estimation, injecting explicit geometric priors and camera imaging physics is far more effective and practical for intelligent cockpits than simply scaling up model capacity.
+
 This directly confirms that our camera-guided 3D modeling, independent of parameter volume, is the fundamental source of improvement and robustness.
