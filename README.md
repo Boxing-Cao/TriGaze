@@ -1,12 +1,12 @@
-# TriGaze: Camera-Guided 3D Representations for Robust In-Vehicle Gaze Estimation
+# 📸 TriGaze: Camera-Guided 3D Representations for Robust In-Vehicle Gaze Estimation
 
-This repository serves as the official supplementary material page for the paper **"TriGaze: Camera-Guided 3D Representations for Robust In-Vehicle Gaze Estimation"** (Accepted to IEEE ICIP 2026). 
+📄 This repository serves as the official supplementary material page for the paper **"TriGaze: Camera-Guided 3D Representations for Robust In-Vehicle Gaze Estimation"** (🎉 Accepted to IEEE ICIP 2026). 
 
 Due to the strict page limits of the conference proceedings, we provide extended experimental results and technical clarifications here. These evaluations directly address the cross-domain generalization capability, parameter efficiency, and the core mechanism of our proposed framework.
 
 ---
 
-## 1. Cross-Domain Generalization (Gaze360 Benchmark)
+## 🌍 1. Cross-Domain Generalization (Gaze360 Benchmark)
 
 While TriGaze is primarily designed and optimized for challenging in-vehicle environments, we explicitly validate its broader generalization by evaluating on the unconstrained **Gaze360** benchmark. This introduces a significant domain shift, rigorously testing robustness against diverse backgrounds, varying illumination, and a 360° gaze range.
 
@@ -20,40 +20,39 @@ Without modifying our core geometric architecture, TriGaze achieved a highly com
 | CA-Net | AAAI 2020 | 11.20° |
 | GazeTR-Conv | ICPR 2022 | 11.09° |
 | GazeDPTR | CVPR 2024 | 10.75° |
-| **TriGaze (Ours)** | **ICIP 2026** | **10.60°** |
+| 🏆 **TriGaze (Ours)** | **ICIP 2026** | **10.60°** |
 
-These steady improvements over both foundational and the latest cutting-edge methods prove that the observed performance leap stems from genuine, robust modeling of inherent 3D facial geometry. It allows the model to effectively adapt across completely different physical environments and extreme viewpoints.
+📈 These steady improvements over both foundational and the latest cutting-edge methods prove that the observed performance leap stems from genuine, robust modeling of inherent 3D facial geometry. It allows the model to effectively adapt across completely different physical environments and extreme viewpoints.
 
 ---
 
-## 2. Efficiency & Model Capacity
+## 🚀 2. Efficiency & Model Capacity
 
 To prove that performance gains stem from genuine geometric modeling rather than merely increased capacity, we compare our parameter efficiency against foundation-model-based approaches:
 
-*   **TriGaze (Ours):** ~32.75M parameters $\rightarrow$ MAE **6.55°** (on IVGaze)
-*   **GazeLLE (DINOv2-based):** >300M parameters $\rightarrow$ MAE **8.21°** (on IVGaze)
+*   🎯 **TriGaze (Ours):** ~32.75M parameters $\rightarrow$ MAE **6.55°** (on IVGaze)
+*   🐘 **GazeLLE (DINOv2-based):** >300M parameters $\rightarrow$ MAE **8.21°** (on IVGaze)
 
-This ~10x efficiency gap definitively rules out model capacity as the primary driver of our performance. It demonstrates that massive backbones like DINOv2 are suboptimal for gaze tasks without the explicit geometric constraints we propose.
+⚖️ This ~10x efficiency gap definitively rules out model capacity as the primary driver of our performance. It demonstrates that massive backbones like DINOv2 are suboptimal for gaze tasks without the explicit geometric constraints we propose.
 
 ---
 
-## 3. The Necessity of Geometric Modeling (Ablation)
+## 🛠️ 3. The Necessity of Geometric Modeling (Ablation)
 
 Our core technical innovation is the **Camera-Parameter-Guided Feature Modulation (CFM)** module. Unlike generic 3D methods, CFM reformulates gaze estimation as a camera-conditioned feature query. By dynamically injecting camera intrinsics and extrinsics to re-weight tri-plane features, it explicitly rectifies extreme perspective distortions and occlusion noise unique to off-axis, in-vehicle environments.
 
-Our ablation studies confirm the indispensability of this design:
-*   **Removing the Tri-plane:** Error increases to 6.66°.
-*   **Removing Camera Guidance (CFM):** Without camera conditioning, the model suffers severe degradation under mask occlusions (error increases to 7.37°).
+🔍 Our ablation studies confirm the indispensability of this design:
+*   ❌ **Removing the Tri-plane:** Error increases to 6.66°.
+*   ❌ **Removing Camera Guidance (CFM):** Without camera conditioning, the model suffers severe degradation under mask occlusions (error increases to 7.37°).
 
+✅ This directly confirms that our camera-guided 3D modeling, independent of parameter volume, is the fundamental source of improvement and robustness.
 
 ---
 
-## 4. Qualitative Insights & Discussion
+## 💡 4. Qualitative Insights & Discussion
 
 Beyond the quantitative metrics, our extensive experiments and ablation studies reveal several key subjective insights into why TriGaze excels in challenging real-world scenarios:
 
-*   **Robustness Against Severe Occlusions (Masks/Glasses):** Traditional 2D methods often fail when facial features are partially occluded because they rely heavily on local texture matching. In contrast, TriGaze demonstrates remarkable resilience. By lifting features into a 3D tri-plane and explicitly conditioning the queries on camera geometry (CFM), the network learns to dynamically filter out occlusion-induced noise and "hallucinate" the underlying 3D facial structure based on visible global context.
-*   **Resilience to Extreme, Off-Axis Viewpoints:** The in-vehicle environment is notorious for fixed, off-axis camera placements and extreme driver head movements. While unguided 3D models still struggle with these severe perspective distortions, our CFM module successfully rectifies them. By treating gaze estimation as a view-dependent feature query, TriGaze inherently understands *how* the face is being imaged, rather than just *what* the face looks like.
-*   **Explicit Geometry Trumps Brute-Force Scaling:** Perhaps the most encouraging takeaway is our comparison with foundation models. The fact that our lightweight framework (~32M parameters) significantly outperforms massive models like DINOv2 (>300M parameters) on this task proves a fundamental principle: for inherently 3D problems like gaze estimation, injecting explicit geometric priors and camera imaging physics is far more effective and practical for intelligent cockpits than simply scaling up model capacity.
-
-This directly confirms that our camera-guided 3D modeling, independent of parameter volume, is the fundamental source of improvement and robustness.
+*   🛡️ **Robustness Against Severe Occlusions (Masks/Glasses):** Traditional 2D methods often fail when facial features are partially occluded because they rely heavily on local texture matching. In contrast, TriGaze demonstrates remarkable resilience. By lifting features into a 3D tri-plane and explicitly conditioning the queries on camera geometry (CFM), the network learns to dynamically filter out occlusion-induced noise and "hallucinate" the underlying 3D facial structure based on visible global context.
+*   📐 **Resilience to Extreme, Off-Axis Viewpoints:** The in-vehicle environment is notorious for fixed, off-axis camera placements and extreme driver head movements. While unguided 3D models still struggle with these severe perspective distortions, our CFM module successfully rectifies them. By treating gaze estimation as a view-dependent feature query, TriGaze inherently understands *how* the face is being imaged, rather than just *what* the face looks like.
+*   🧠 **Explicit Geometry Trumps Brute-Force Scaling:** Perhaps the most encouraging takeaway is our comparison with foundation models. The fact that our lightweight framework (~32M parameters) significantly outperforms massive models like DINOv2 (>300M parameters) on this task proves a fundamental principle: for inherently 3D problems like gaze estimation, injecting explicit geometric priors and camera imaging physics is far more effective and practical for intelligent cockpits than simply scaling up model capacity.
