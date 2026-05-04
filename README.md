@@ -17,8 +17,8 @@ Without modifying our core geometric architecture, TriGaze achieved a highly com
 | Pinball LSTM | ICCV 2019 | 13.50° |
 | GazePTR | CVPR 2024 | 13.45° |
 | GazeLLE | CVPR 2025 | 11.81° |
-| CA-Net | - | 11.20° |
-| GazeTR-Conv | - | 11.09° |
+| CA-Net | AAAI 2020 | 11.20° |
+| GazeTR-Conv | ICPR 2022 | 11.09° |
 | GazeDPTR | CVPR 2024 | 10.75° |
 | **TriGaze (Ours)** | **ICIP 2026** | **10.60°** |
 
